@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #111;
+  color: #fff;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.lists{
+  margin-top: -150px;
+  z-index: 100;
+}
+
+footer{
+  margin: 20 0 0;
+  text-align: left;
+  background-color: #312F30;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+
+footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+footer li {
+  margin: 0 15px;
+  line-height: 30px;
+  -webkit-tap-highlight-color: transparent; /* transparent with keyword */
+}
+
+.footer--row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.footer--row-column-left{
+  display: flex;
+  align-items: center;
+}
+
+
+.footer--row-column-right{
+  display: flex;
+  align-items: center;
+}
+
+.footer--texto-sobre-logo{
+  font-size: 30px;
+  font-weight: 700;
+  width: 300px;
+}
+
+.footer--logo{
+  -webkit-tap-highlight-color: transparent; /* transparent with keyword */
+}
+
+.footer--logo img{
+  height: 100px;
+  -webkit-tap-highlight-color: transparent; /* transparent with keyword */
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding-left: 20px;
+}
+
+.footer--textos-direita{
+  font-size: 15px;
+  -webkit-tap-highlight-color: transparent; /* transparent with keyword */
+  
+}
+
+.footer--direitos{
+  font-size: 12px;
+  padding: 15px 0 0 12px;
+  -webkit-tap-highlight-color: transparent; /* transparent with keyword */
+}
+
+.loading{
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+  
+}
+
+footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.social-icons {
+  margin-top: 10px;
+  align-items: center;
+}
+
+.social-icons li {
+  display: inline-block;
+  margin: 3px;
+  align-items: left;
+  padding-left: 10px;
+}
+
+.social-icons a {
+  display: block;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #312F30;
+  text-align: center;
+  line-height: 39px;
+  transition: all 0.3s ease;
+  
+}
+
+
+@media (max-width: 768px) {
+  .footer--row {
+    flex-direction: column;
+  }
+
+  footer ul {
+    flex-direction: row;
+    align-items: left;
+  }
+
+  footer li {
+    margin-bottom: 10px;
+  }
+}

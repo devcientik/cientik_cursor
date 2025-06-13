@@ -1,0 +1,133 @@
+*{
+    z-index: 23;
+}
+
+:focus {
+    outline: none !important;
+}
+
+
+
+.movieRow {
+    margin-bottom: 20px;
+}
+.movieRow h2 {
+    margin: 0px 0px 0px 30px;
+    z-index: 20;
+}
+
+.movieRow--listarea {
+    overflow-x: hidden;
+    padding-left: 30px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.movieRow--list {
+    transition: all ease 0.5s;
+    will-change: transform;
+    touch-action: pan-x;
+}
+
+.movieRow--list:active {
+    cursor: grabbing;
+}
+
+.movieRow--item {
+    display: inline-block;
+    width: 200px;
+    cursor: pointer;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.movieRow--item img {
+    width: 100%;
+    transform: scale(0.9);
+    transition: all ease 0.2s;
+}
+
+.movieRow--item:hover img {
+    transform: scale(1);
+}
+
+.movieRow--title{
+    width: 70vw;
+    height: 30px;
+    /*display: flex !important;*/
+}
+
+.movieRow--title--texto{
+    display: inline-block;
+    z-index: 50;
+}
+
+.movieRow--linha{
+    display: inline-block;
+}
+
+.movieRow--left,
+.movieRow--right{
+    position: absolute;
+    width: 40px;
+    height: 225px;
+    color: #ff4c00;
+    z-index: 23;
+    display: flex;
+    padding-top: 70px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0;
+    transition: all ease 0.5s;
+    /* tira o clique azul*/
+    -webkit-tap-highlight-color: transparent; /* transparent with keyword */
+}
+
+.movieRow--left{
+    left: 0;
+}
+
+.movieRow--right{
+    right: 0;
+}
+
+.movieRow:hover .movieRow--left,
+.movieRow:hover .movieRow--right{
+    opacity: 1;
+}
+
+@media(max-width:660px){
+    .movieRow--left,
+    .movieRow--right{
+        opacity: 1;
+    }
+}
+
+.linha-laranja {
+    display: inline-block;
+    width:15vw;
+    height: 2px;
+    align-self: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-image: linear-gradient(to right, rgba(232, 72, 16, 0.5), rgba(20, 20, 20, 0.6)) 1 / 1 / 0 stretch;
+    margin-left: 5%;
+}
+
+
+@media (max-width:760px){
+    .movieRow h2 {
+        margin: 0px 0px 0px 20px;
+        z-index: 18;
+        font-size: 16px;
+    } 
+}
