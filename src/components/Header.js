@@ -5,7 +5,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaSearch } from "react-icons/fa";
 import {FaBars, FaTimes} from "react-icons/fa";
 import {useRef} from "react";
 import { useAuth } from '../services/AuthContext';
@@ -102,13 +102,13 @@ export default({black}) => {
             </div>
 
             <div className="header--search-section"> {/* Seção de Busca - Conforme nova imagem */}
-                <select className="search-select">
-                    <option value="">Anos Escolares</option>
-                    {/* Adicionar mais opções aqui conforme necessário */}
-                </select>
+                <input 
+                    type="text" 
+                    placeholder="Procurar" 
+                    className="search-input" 
+                />
                 <button className="search-button">
-                    <HomeOutlinedIcon />
-                    Buscar
+                    <FaSearch />
                 </button>
             </div>
 
@@ -137,9 +137,6 @@ export default({black}) => {
                 </a>
                 {showUserMenu && currentUser && (
                     <div className="user-menu-dropdown" ref={userMenuRef}>
-                        <div className="user-menu-item-header">
-                            {currentUser.nome} {currentUser.sobrenome}
-                        </div>
                         <div className="user-menu-item" onClick={() => navigate('/area-usuario')}>
                             Área do Usuário
                         </div>

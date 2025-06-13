@@ -224,9 +224,6 @@ const SignUp = () => {
                 <button className="signup-btn" type="submit" disabled={loading} style={{ zIndex: 1, position: 'relative' }}>
                     {loading ? 'Cadastrando...' : 'Cadastrar'}
                 </button>
-                <div className="signup-bottom" style={{ zIndex: 1, position: 'relative' }}>
-                    Já tem conta? <a className="signup-link" href="/login">Entrar</a>
-                </div>
             </form>
         </div>
     );

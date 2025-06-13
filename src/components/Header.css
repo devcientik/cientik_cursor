@@ -18,6 +18,7 @@ header{
   z-index: 30;
   gap: 20px; /* Adiciona espaçamento entre os itens do menu */
   align-items: center;
+  margin-left: 60px; /* Move o menu 60px para a direita */
 }
 
 .header--menu--text{
@@ -98,7 +99,7 @@ header.trans{
     margin-left: auto; /* Empurra para a direita */
 }
 
-.search-select {
+.search-input {
     background-color: #1f1f1f; /* Cor de fundo escura */
     border: 1px solid #444; /* Borda sutil */
     border-radius: 5px;
@@ -106,7 +107,6 @@ header.trans{
     color: #fff;
     font-size: 16px;
     outline: none; /* Remove o outline padrão ao focar */
-    cursor: pointer;
 }
 
 .search-button {
@@ -114,11 +114,12 @@ header.trans{
     color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 8px 15px;
+    padding: 8px 12px; /* Ajustado padding para o ícone */
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center; /* Centraliza o ícone */
+    gap: 5px; /* Manter se houver texto, mas para ícone pode ser 0 */
     transition: background-color 0.2s ease;
 }
 
