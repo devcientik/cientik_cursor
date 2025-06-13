@@ -40,11 +40,13 @@ export default () => {
   // quando o usuário dá scroll na página
   useEffect(()=>{
     const scrollListener = () => {
+      console.log("Scroll detectado! window.scrollY:", window.scrollY);
       if(window.scrollY>10){
         setBlackHeader(true);
       }else{
         setBlackHeader(false);
       }
+      console.log("blackHeader atualizado para:", blackHeader);
     }
     window.addEventListener('scroll', scrollListener);
     return () => {

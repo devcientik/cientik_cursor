@@ -44,21 +44,14 @@ export const AuthProvider = ({ children }) => {
     // Observa o estado de autenticação do Firebase
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async user => {
-            console.log('Auth state changed. User:', user);
             if (user) {
-                // Se houver um usuário logado, buscar seus dados no Firestore
                 const docRef = doc(db, "usuarios", user.uid);
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    // Combinar os dados do Firebase Auth com os dados do Firestore
-                    setCurrentUser({
-                        ...user,
-                        ...docSnap.data()
-                    });
+                    const userData = { ...user, ...docSnap.data() };
+                    setCurrentUser(userData);
                 } else {
-                    // Se o documento não existir (o que não deveria acontecer após o signup),
-                    // apenas usar o objeto user padrão do Firebase Auth
                     setCurrentUser(user);
                 }
             } else {
@@ -66,7 +59,7 @@ export const AuthProvider = ({ children }) => {
             }
             setLoading(false);
         });
-        return unsubscribe; // Cleanup subscription on unmount
+        return unsubscribe;
     }, []);
 
     const value = {
@@ -75,8 +68,6 @@ export const AuthProvider = ({ children }) => {
         login,
         logout
     };
-
-    console.log('AuthContext - Current User State:', currentUser);
 
     return (
         <AuthContext.Provider value={value}>

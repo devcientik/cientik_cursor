@@ -1,5 +1,5 @@
 header{
-  position: fixed;
+  position: fixed !important;
   top: 0;
   left: 0;
   right: 0;
@@ -10,26 +10,23 @@ header{
   padding: 0 20px;
   background: transparent;
   transition: all ease 0.5s;
+  z-index: 100;
 }
 
 .header--menu{
-  justify-content: left;
-  align-items: left;
-  display: flex;
-  size: 20px;
-  position: absolute;
-  margin-left: 220px;
-  margin-right: 50px; /* Adiciona margem para o menu */
+  display: flex; /* Torna o menu de páginas visível em desktop */
   z-index: 30;
+  gap: 20px; /* Adiciona espaçamento entre os itens do menu */
+  align-items: center;
 }
 
 .header--menu--text{
-  font-size: 18;
+  font-size: 18px; /* Adicionado px */
   text-decoration: none;
   color: #fff;
   align-items: center;
   display: flex;
-  padding: 20px;
+  padding: 10px 15px; /* Ajustado padding */
   cursor: pointer;
   transition: all ease 0.2s;
   z-index: 30;
@@ -52,36 +49,28 @@ header{
 
 header.black{
   background-color: #141414;
-  z-index: 26;
 }
 
 header.trans{
-    z-index: 26;
 }
 
 .header--logo{
-  height: 90px;
   -webkit-tap-highlight-color: transparent; /* transparent with keyword */
 }
 .header--logo img{
- height: 90%;
- padding-top: 15x;
- padding-bottom: 15x;
+ height: 70px; /* Ajustado para 70px */
  -webkit-tap-highlight-color: transparent; /* transparent with keyword */
 }
 
 .header--user {
-  height: 80px;
-  color: #9e1212;
-  padding-top: 25px;
-  align-self: center;
+  color: #9e1212; /* Note: This color for .header--user might be overridden by .user-icon-link color: white */
   -webkit-tap-highlight-color: transparent; /* transparent with keyword */
   position: relative; /* Adiciona posição relativa para posicionar o dropdown */
+  margin-left: 20px; /* Espaçamento da seção de busca */
 }
 
 .header--user img{
   height: 50%;
-  padding-top: 15x;
 }
 
 .user-icon-link {
@@ -92,11 +81,65 @@ header.trans{
   cursor: pointer;
 }
 
+.user-avatar-icon {
+    color: white;
+    font-size: 30px; /* Tamanho padrão para desktop */
+}
+
 .user-email-display {
   margin-left: 8px;
   font-size: 18px;
-  vertical-align: middle;
 }
+
+.header--search-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto; /* Empurra para a direita */
+}
+
+.search-select {
+    background-color: #1f1f1f; /* Cor de fundo escura */
+    border: 1px solid #444; /* Borda sutil */
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: #fff;
+    font-size: 16px;
+    outline: none; /* Remove o outline padrão ao focar */
+    cursor: pointer;
+}
+
+.search-button {
+    background-color: #414141; /* Cor de fundo do cabeçalho */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.search-button:hover {
+    background-color: #555;
+}
+
+.nav-btn {
+    color: white; /* Cor padrão para desktop */
+    display: none; /* Oculta o botão hambúrguer em desktop */
+    background: transparent; /* Garante fundo transparente */
+    border: none; /* Remove qualquer borda */
+}
+
+.nav-btn svg {
+    font-size: 30px; /* Tamanho padrão para desktop */
+}
+
+/* Removido: .header--left-group */
+
+/* Removido: .header--right-group */
 
 .user-menu-dropdown {
   position: absolute;
@@ -133,7 +176,62 @@ header.trans{
 
 /* Estilo para o botão do menu em telas menores */
 @media (max-width: 768px) {
+    header {
+        position: fixed !important; /* Mantém o header fixo */
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px; /* Ajusta o padding para mobile */
+        z-index: 100; /* Garante que o header fique acima de tudo */
+    }
+
+    /* Oculta o header--menu em mobile */
     .header--menu {
-      display: none;
+        display: none; 
+    }
+
+    /* Oculta a seção de busca em mobile */
+    .header--search-section {
+        display: none;
+    }
+
+    .header--logo {
+        height: 50px;
+        flex-shrink: 0;
+    }
+
+    .header--logo img {
+        height: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .header--user {
+        /* Removido: flex-grow, justify-content, padding */
+        display: flex;
+        align-items: center;
+        /* O padding será controlado pelo header ou pela margem do elemento */
+    }
+
+    .user-avatar-icon {
+        font-size: 15px; /* Metade do tamanho */
+    }
+
+    .user-email-display {
+        font-size: 14px; /* Ajusta o tamanho da fonte */
+        margin-left: 5px; /* Ajusta a margem */
+    }
+
+    .nav-btn {
+        display: block !important; /* Mostra o botão hambúrguer em mobile */
+        z-index: 50; /* Garante que ele fique acima dos outros elementos */
+        flex-shrink: 0;
+        background: transparent; /* Garante fundo transparente */
+        border: none; /* Remove qualquer borda */
+    }
+
+    .nav-btn svg {
+        font-size: 15px; /* Metade do tamanho */
     }
 }

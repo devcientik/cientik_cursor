@@ -16,11 +16,13 @@ const Sobre = () => {
     // quando o usuário dá scroll na página
     useEffect(()=>{
         const scrollListener = () => {
+            console.log("Scroll detectado em Sobre.js! window.scrollY:", window.scrollY);
             if(window.scrollY>10){
             setBlackHeader(true);
             }else{
             setBlackHeader(false);
             }
+            console.log("blackHeader em Sobre.js atualizado para:", blackHeader);
         }
         window.addEventListener('scroll', scrollListener);
         return () => {

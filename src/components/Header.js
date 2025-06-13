@@ -26,12 +26,11 @@ export default({black}) => {
     const navRef = useRef();
 
     const showNavbar = () => {
-        
-        navRef.current.classList.toggle("responsive_nav");
-        {/*
-        var element = document.getElementById("botao-han");
-        element.classList.toggle("nav");
-        */}
+        console.log("showNavbar chamado!");
+        if (navRef.current) {
+            navRef.current.classList.toggle("responsive_nav");
+            console.log("navRef.current.className:", navRef.current.className);
+        }
     }
 
     const handleLogout = async () => {
@@ -52,12 +51,13 @@ export default({black}) => {
     };
 
     const isProfessorGestorAdmin = currentUser && 
-        (currentUser.userType === 'Professor' || 
-         currentUser.userType === 'Gestor' || 
-         currentUser.userType === 'Administrador');
+        (currentUser.tipo === 'Professor' || 
+         currentUser.tipo === 'Gestor' || 
+         currentUser.tipo === 'Administrador');
 
     useEffect(() => {
         console.log("currentUser no Header:", currentUser);
+        console.log("Prop black no Header:", black);
         const handleClickOutside = (event) => {
             if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
                 console.log("Clicou fora do menu de usuário. Fechando menu.");
@@ -82,7 +82,7 @@ export default({black}) => {
                 </a>
             </div>
             
-            <div className="header--menu">
+            <div className="header--menu"> {/* Links de navegação para desktop - Conforme nova imagem */}
                 <a href="/inicio" className="header--menu--text">
                     <HomeOutlinedIcon style={{fontSize: 20}}/>
                     Início
@@ -101,8 +101,18 @@ export default({black}) => {
                 </a>
             </div>
 
-            {/*<span className="bm-burger-button" onClick={() => setIsOpen(!isOpen)} />*/}
-            <nav ref={navRef}>
+            <div className="header--search-section"> {/* Seção de Busca - Conforme nova imagem */}
+                <select className="search-select">
+                    <option value="">Anos Escolares</option>
+                    {/* Adicionar mais opções aqui conforme necessário */}
+                </select>
+                <button className="search-button">
+                    <HomeOutlinedIcon />
+                    Buscar
+                </button>
+            </div>
+
+            <nav ref={navRef}> {/* Este é o menu lateral mobile, deve ser oculto em desktop via CSS */}
                 
                 <a href="/inicio">Início</a>
                 <a href="/#">Minha Lista</a>
@@ -113,14 +123,10 @@ export default({black}) => {
                     <FaTimes/>
                 </button>
             </nav>
-
-            <button id="botao-han" className="nav-btn" onClick={showNavbar}>
-                    <FaBars/>
-            </button>
             
-            <div className="header--user">
+            <div className="header--user"> {/* User icon and name - agora filho direto do header */} 
                 <a href="#" onClick={handleUserMenuClick} className="user-icon-link">
-                    <FaUser style={{color: 'white' , fontSize: 30}} />
+                    <FaUser className="user-avatar-icon" />
                     {currentUser ? (
                         <span className="user-email-display">
                             {currentUser.nome} {currentUser.sobrenome}
@@ -137,6 +143,11 @@ export default({black}) => {
                         <div className="user-menu-item" onClick={() => navigate('/area-usuario')}>
                             Área do Usuário
                         </div>
+                        {currentUser && currentUser.tipo === 'Administrador' && (
+                            <div className="user-menu-item" onClick={() => navigate('/admin/cientik')}>
+                                Admin Cientik
+                            </div>
+                        )}
                         {isProfessorGestorAdmin && (
                             <div className="user-menu-item" onClick={() => navigate('/dados-analiticos')}>
                                 Dados Analíticos
@@ -148,6 +159,10 @@ export default({black}) => {
                     </div>
                 )}
             </div>
+            {/* O botão hambúrguer será controlado por CSS para aparecer apenas em mobile */}
+            <button id="botao-han" className="nav-btn" onClick={showNavbar}> {/* Botão hambúrguer para mobile */} 
+                <FaBars/>
+            </button>
         </header>
     </div>
     )

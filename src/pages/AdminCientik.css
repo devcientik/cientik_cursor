@@ -1,0 +1,70 @@
+.admin-cientik-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #141414; /* Fundo escuro */
+    color: #fff; /* Texto branco */
+    padding-top: 70px; /* Espaço para o header */
+}
+
+.admin-sidebar {
+    width: 250px;
+    background-color: #1a1a1a; /* Cor mais clara que o fundo para a sidebar */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5); /* Sombra para destacar */
+    position: fixed; /* Torna a sidebar fixa */
+    top: 0px; /* Alinha abaixo do header */
+    left: 0; /* Alinha à esquerda */
+    height: calc(100vh); /* Ocupa a altura restante da viewport */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo da sidebar for muito longo */
+}
+
+.sidebar-title {
+    font-size: 22px;
+    margin-bottom: 25px;
+    color: var(--primaryColor); /* Laranja do Cientik */
+    text-align: center;
+    font-weight: bold;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-item {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    color: #ccc;
+}
+
+.sidebar-item:hover {
+    background-color: #333; /* Fundo ao passar o mouse */
+    color: #fff;
+}
+
+.admin-content {
+    flex-grow: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: 250px; /* Adiciona margem para compensar a largura da sidebar fixa */
+}
+
+.admin-content h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.admin-content p {
+    font-size: 18px;
+    color: #aaa;
+} 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../services/AuthContext'; // Importa useAuth do novo contexto
-import './Login.css';
+import './SignUp.css'; // Altera a importação de CSS para SignUp.css
 
 const SignUp = () => {
     const { signup } = useAuth(); // Obtém a função signup do contexto
@@ -110,147 +110,124 @@ const SignUp = () => {
     };
 
     return (
-        <div className="login-bg">
-            <div className="login-overlay">
-                <img src="/cientiklogo.png" alt="Logo Cientik" className="login-logo" />
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <h2>Cadastro</h2>
-                    {error && <div className="login-error">{error}</div>}
-                    {success && <div className="login-error" style={{background:'#e0ffe0',color:'#388e3c'}}>Cadastro realizado com sucesso!</div>}
+        <div className="signup-card">
+            <img src="/cientiklogo.png" alt="Logo Cientik" className="signup-logo" />
+            <form className="signup-form" onSubmit={handleSubmit}>
+                <h2>Cadastro de Usuários</h2>
+                {error && <div className="error-message">{error}</div>}
+                {success && <div className="success-message">Cadastro realizado com sucesso!</div>}
 
-                    <div className="login-group">
-                        <label htmlFor="nome">Nome</label>
-                        <input
-                            type="text"
-                            id="nome"
-                            name="nome"
-                            value={formData.nome}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+                <div className="form-group">
+                    <label htmlFor="nome">Nome</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        value={formData.nome}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                    <div className="login-group">
-                        <label htmlFor="sobrenome">Sobrenome</label>
-                        <input
-                            type="text"
-                            id="sobrenome"
-                            name="sobrenome"
-                            value={formData.sobrenome}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+                <div className="form-group">
+                    <label htmlFor="sobrenome">Sobrenome</label>
+                    <input
+                        type="text"
+                        id="sobrenome"
+                        name="sobrenome"
+                        value={formData.sobrenome}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                    <div className="login-group">
-                        <label htmlFor="email">E-mail</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                            autoComplete="email"
-                        />
-                    </div>
+                <div className="form-group">
+                    <label htmlFor="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        autoComplete="email"
+                    />
+                </div>
 
-                    <div className="login-group">
-                        <label htmlFor="password">Senha</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                            minLength="6"
-                            autoComplete="new-password"
-                        />
-                    </div>
+                <div className="form-group">
+                    <label htmlFor="password">Senha</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        minLength="6"
+                        autoComplete="new-password"
+                    />
+                </div>
 
-                    <div className="login-group">
-                        <label htmlFor="confirmPassword">Confirmar Senha</label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                            required
-                            minLength="6"
-                            autoComplete="new-password"
-                        />
-                    </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPassword">Confirmar Senha</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        required
+                        minLength="6"
+                        autoComplete="new-password"
+                    />
+                </div>
 
-                    <div className="login-group" style={{ position: 'relative' }}>
-                        <label htmlFor="cidade">Cidade</label>
-                        <input
-                            type="text"
-                            id="cidade"
-                            name="cidade"
-                            value={formData.cidade}
-                            onChange={handleChange}
-                            required
-                        />
-                        {showCitySuggestions && citySuggestions.length > 0 && (
-                            <ul style={{
-                                position: 'absolute',
-                                top: '100%',
-                                left: 0,
-                                right: 0,
-                                zIndex: 10,
-                                background: '#222',
-                                border: '1px solid #333',
-                                borderRadius: '8px',
-                                maxHeight: '200px',
-                                overflowY: 'auto',
-                                listStyle: 'none',
-                                padding: 0,
-                                margin: '4px 0 0 0'
-                            }}>
-                                {citySuggestions.map((city, index) => (
-                                    <li key={index}
-                                        onClick={() => handleSelectCity(city)}
-                                        style={{
-                                            padding: '10px 14px',
-                                            cursor: 'pointer',
-                                            color: '#fff',
-                                            borderBottom: '1px solid #333'
-                                        }}
-                                        onMouseEnter={e => e.currentTarget.style.backgroundColor = '#333'}
-                                        onMouseLeave={e => e.currentTarget.style.backgroundColor = '#222'}
-                                    >
-                                        {city}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-
-                    <div className="login-group">
-                        <label htmlFor="tipo">Tipo de Usuário</label>
-                        <select
-                            id="tipo"
-                            name="tipo"
-                            value={formData.tipo}
-                            onChange={handleChange}
-                            required
-                        >
-                            {userTypes.map(type => (
-                                <option key={type} value={type}>{type}</option>
+                <div className="form-group" style={{ position: 'relative', zIndex: 20 }}>
+                    <label htmlFor="cidade">Cidade</label>
+                    <input
+                        type="text"
+                        id="cidade"
+                        name="cidade"
+                        value={formData.cidade}
+                        onChange={handleChange}
+                        required
+                    />
+                    {showCitySuggestions && citySuggestions.length > 0 && (
+                        <ul className="city-suggestions-dropdown">
+                            {citySuggestions.map((city, index) => (
+                                <li key={index}
+                                    onClick={() => handleSelectCity(city)}
+                                    className="city-suggestion-item"
+                                >
+                                    {city}
+                                </li>
                             ))}
-                        </select>
-                    </div>
+                        </ul>
+                    )}
+                </div>
 
-                    <button className="login-btn" type="submit" disabled={loading}>
-                        {loading ? 'Cadastrando...' : 'Cadastrar'}
-                    </button>
-                    <div className="login-bottom">
-                        Já tem conta? <a className="login-link" href="/login">Entrar</a>
-                    </div>
-                </form>
-            </div>
+                <div className="form-group" style={{ zIndex: 1, position: 'relative' }}>
+                    <label htmlFor="tipo">Tipo de Usuário</label>
+                    <select
+                        id="tipo"
+                        name="tipo"
+                        value={formData.tipo}
+                        onChange={handleChange}
+                        required
+                    >
+                        {userTypes.map(type => (
+                            <option key={type} value={type}>{type}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <button className="signup-btn" type="submit" disabled={loading} style={{ zIndex: 1, position: 'relative' }}>
+                    {loading ? 'Cadastrando...' : 'Cadastrar'}
+                </button>
+                <div className="signup-bottom" style={{ zIndex: 1, position: 'relative' }}>
+                    Já tem conta? <a className="signup-link" href="/login">Entrar</a>
+                </div>
+            </form>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../services/AuthContext';
 import './Login.css';
@@ -10,18 +10,23 @@ const Login = () => {
   const [error, setError] = useState(null);
   const [remember, setRemember] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, currentUser, loading: authLoading } = useAuth();
+
+  useEffect(() => {
+    if (!authLoading && currentUser) {
+      navigate('/inicio');
+      setEmail('');
+      setPassword('');
+      setError(null);
+    }
+  }, [currentUser, authLoading, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     try {
-      console.log('Attempting login with:', email);
-      const userCredential = await login(email, password);
-      console.log('Login successful! User:', userCredential.user);
-      navigate('/inicio');
-      console.log('Navigated to /inicio');
+      await login(email, password);
     } catch (err) {
       console.error('Login failed:', err.message);
       setError(err.message || 'E-mail ou senha inválidos.');
@@ -31,7 +36,6 @@ const Login = () => {
   };
 
   const handleForgotPassword = () => {
-    // Redireciona para página de recuperação ou abre modal futuramente
     alert('Funcionalidade de recuperação de senha em breve!');
   };
 
