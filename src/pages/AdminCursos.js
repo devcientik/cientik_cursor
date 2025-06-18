@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaEdit, FaTrash, FaListUl } from 'react-icons/fa';
+import CursoWizardModal from '../components/ui/CursoWizardModal';
 
 const cursosMock = [
   {
@@ -16,8 +17,11 @@ const cursosMock = [
 ];
 
 const AdminCursos = () => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#181818] text-white p-6">
+      <CursoWizardModal open={showModal} onClose={() => setShowModal(false)} />
       <div className="flex flex-col items-center gap-6 mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-center w-full gap-4">
           <select className="rounded-md px-3 py-2 bg-[#232323] text-white border border-[#333] focus:outline-none w-56">
@@ -26,7 +30,7 @@ const AdminCursos = () => {
             <option>Biografia</option>
             <option>Educação</option>
           </select>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-full shadow transition text-lg flex items-center gap-2">
+          <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-full shadow transition text-lg flex items-center gap-2" onClick={() => setShowModal(true)}>
             <span className="text-2xl">+</span> Cadastro de Curso
           </button>
           <input type="text" placeholder="Buscar conteúdo" className="rounded-md px-3 py-2 bg-[#232323] text-white border border-[#333] focus:outline-none w-56" />
