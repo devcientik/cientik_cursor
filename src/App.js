@@ -8,6 +8,8 @@ import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
 import AdminCientik from './pages/AdminCientik';
+import AdminCursos from './pages/AdminCursos';
+import AdminCadastroUsuarios from './pages/AdminCadastroUsuarios';
 import { AuthProvider } from './services/AuthContext';
 
 export default () => {
@@ -34,7 +36,16 @@ export default () => {
             } />
 
             <Route path="/admin" element={<AdminRoute />}>
-                <Route path="cientik" element={<AdminCientik />} />
+                <Route path="cientik" element={<AdminCientik />}>
+                    <Route index element={
+                        <div className="admin-content-welcome">
+                            <h2>Bem-vindo à Área Administrativa Cientik!</h2>
+                            <p>Use o menu lateral para navegar pelas opções de administração.</p>
+                        </div>
+                    } />
+                    <Route path="cursos" element={<AdminCursos />} />
+                    <Route path="cadastro-usuarios" element={<AdminCadastroUsuarios />} />
+                </Route>
             </Route>
 
             <Route path="*" element={<NoPage />} />

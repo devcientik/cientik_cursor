@@ -18,6 +18,15 @@
     overflow-y: auto; /* Adiciona scroll se o conteúdo da sidebar for muito longo */
 }
 
+.admin-sidebar img.sidebar-logo {
+    max-width: 100%; /* Garante que a imagem não exceda a largura da sidebar */
+    height: auto;    /* Mantém a proporção da imagem */
+    margin-bottom: 20px; /* Espaço abaixo da logo */
+    display: block; /* Garante que a margem funcione corretamente */
+    margin-left: auto; /* Centraliza a imagem */
+    margin-right: auto; /* Centraliza a imagem */
+}
+
 .sidebar-title {
     font-size: 22px;
     margin-bottom: 25px;

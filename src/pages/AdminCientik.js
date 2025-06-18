@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './AdminCientik.css';
 import { useAuth } from '../services/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import SignUp from '../components/SignUp';
+import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 
 const AdminCientik = () => {
     const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
-    const [activeContent, setActiveContent] = useState('welcome');
-
+    const location = useLocation();
     const isAdministrador = currentUser && currentUser.tipo === 'Administrador';
 
     const handleLogout = async () => {
@@ -20,44 +18,32 @@ const AdminCientik = () => {
         }
     };
 
-    const renderContent = () => {
-        switch (activeContent) {
-            case 'cadastro-usuarios':
-                return <SignUp />;
-            case 'welcome':
-            default:
-                return (
-                    <div className="admin-content-welcome">
-                        <h2>Bem-vindo à Área Administrativa Cientik!</h2>
-                        <p>Use o menu lateral para navegar pelas opções de administração.</p>
-                    </div>
-                );
-        }
-    };
-
     return (
         <div className="admin-cientik-container">
             <div className="admin-sidebar">
+                <img src="/cientiklogo.png" alt="Cientik Logo" className="sidebar-logo" />
                 <h3 className="sidebar-title">Menu Administrativo</h3>
                 <ul className="sidebar-menu">
                     <li 
-                        className={`sidebar-item ${activeContent === 'area-usuario' ? 'active' : ''}`}
-                        onClick={() => {
-                            setActiveContent('area-usuario');
-                            navigate('/area-usuario');
-                        }}
+                        className={`sidebar-item${location.pathname === '/area-usuario' ? ' active' : ''}`}
+                        onClick={() => navigate('/area-usuario')}
                     >
                         Área do Usuário
                     </li>
-
                     {isAdministrador && (
                         <li 
-                            className={`sidebar-item ${activeContent === 'cadastro-usuarios' ? 'active' : ''}`}
-                            onClick={() => setActiveContent('cadastro-usuarios')}
+                            className={`sidebar-item${location.pathname === '/admin/cientik/cadastro-usuarios' ? ' active' : ''}`}
+                            onClick={() => navigate('/admin/cientik/cadastro-usuarios')}
                         >
                             Cadastro de Usuários
                         </li>
                     )}
+                    <li 
+                        className={`sidebar-item${location.pathname === '/admin/cientik/cursos' ? ' active' : ''}`}
+                        onClick={() => navigate('/admin/cientik/cursos')}
+                    >
+                        Cursos
+                    </li>
                     <li 
                         className="sidebar-item"
                         onClick={() => navigate('/inicio')}
@@ -73,7 +59,7 @@ const AdminCientik = () => {
                 </ul>
             </div>
             <div className="admin-content">
-                {renderContent()}
+                <Outlet />
             </div>
         </div>
     );

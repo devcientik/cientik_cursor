@@ -123,7 +123,7 @@
 }
 
 .signup-btn {
-    background: var(--primaryColor);
+    background: #ff4c00 !important;
     color: #fff;
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 700;
@@ -138,12 +138,12 @@
 }
 
 .signup-btn:disabled {
-    background: #ccc;
+    background: #ccc !important;
     cursor: not-allowed;
 }
 
 .signup-btn:hover:not(:disabled) {
-    background: #e65c00;
+    background: #e65c00 !important;
 }
 
 .error-message {

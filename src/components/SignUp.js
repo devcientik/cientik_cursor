@@ -111,7 +111,6 @@ const SignUp = () => {
 
     return (
         <div className="signup-card">
-            <img src="/cientiklogo.png" alt="Logo Cientik" className="signup-logo" />
             <form className="signup-form" onSubmit={handleSubmit}>
                 <h2>Cadastro de Usuários</h2>
                 {error && <div className="error-message">{error}</div>}
@@ -221,7 +220,7 @@ const SignUp = () => {
                     </select>
                 </div>
 
-                <button className="signup-btn" type="submit" disabled={loading} style={{ zIndex: 1, position: 'relative' }}>
+                <button type="submit" className="signup-btn" disabled={loading}>
                     {loading ? 'Cadastrando...' : 'Cadastrar'}
                 </button>
             </form>
