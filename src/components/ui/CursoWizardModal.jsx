@@ -44,6 +44,7 @@ const CursoWizardModal = ({ open, onClose }) => {
     dataAte: '',
     clientes: [],
     faixa: '',
+    liberadoPara: 'Todos',
   });
   const [temporadas, setTemporadas] = useState(["Temporada 01"]);
   const [videoUnico, setVideoUnico] = useState(false);
@@ -266,6 +267,19 @@ const CursoWizardModal = ({ open, onClose }) => {
                 ))}
               </div>
             </div>
+            <div>
+              <label className="text-white font-semibold">Conteúdo liberado para:</label>
+              <select
+                name="liberadoPara"
+                value={form.liberadoPara}
+                onChange={handleInput}
+                className="rounded-md px-3 py-2 bg-[#181818] text-white border border-[#333] focus:outline-none ml-2 w-full"
+              >
+                <option>Todos</option>
+                <option>Estudantes</option>
+                <option>Professores</option>
+              </select>
+            </div>
             <div className="flex justify-end pt-4">
               <button type="button" className={`px-8 py-2 rounded-full font-bold text-white bg-orange-500 hover:bg-orange-600 transition disabled:opacity-50`} disabled={!podeAvancar} onClick={() => setStep(step + 1)}>
                 Próximo
@@ -309,7 +323,7 @@ const CursoWizardModal = ({ open, onClose }) => {
               </div>
               {/* Imagem do Trailer */}
               <div className="flex-1 bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center min-w-[220px]">
-                <span className="text-orange-500 font-bold mb-2">Imagem</span>
+                <span className="text-orange-500 font-bold mb-2">Cartaz</span>
                 <span className="text-gray-400 text-xs mb-1">270 x 153 px</span>
                 <span className="text-gray-400 text-xs mb-2">Formatos: JPG ou PNG</span>
                 <button className="w-44 h-28 bg-[#181818] border-2 border-dashed border-gray-500 rounded-lg flex items-center justify-center text-gray-500 hover:border-orange-500 transition mb-2">
@@ -347,14 +361,6 @@ const CursoWizardModal = ({ open, onClose }) => {
               <div className="flex flex-col items-center gap-6">
                 <div className="w-full max-w-xl bg-[#232323] rounded-lg shadow p-6 flex flex-col gap-4 items-center">
                   <span className="text-orange-500 font-bold mb-2">Vídeo do Curso</span>
-                  <div className="w-full max-w-md flex flex-col items-center">
-                    <label className="text-white font-semibold">Vídeo liberado para:</label>
-                    <select className="rounded-md px-3 py-2 bg-[#181818] text-white border border-[#333] focus:outline-none ml-2 w-full">
-                      <option>Todos</option>
-                      <option>Estudantes</option>
-                      <option>Professores</option>
-                    </select>
-                  </div>
                   <div className="w-full max-w-md flex flex-col items-center">
                     <span className="text-white font-semibold">Legendas</span>
                     <div className="flex items-center gap-2 mt-1">
@@ -453,7 +459,7 @@ const CursoWizardModal = ({ open, onClose }) => {
               <div className="flex flex-col gap-2 mb-6">
                 {materiaisUnico.map((mat, idx) => (
                   <div key={idx} className="w-full flex items-center bg-[#232323] rounded-lg shadow p-3">
-                    <span className="flex-1 text-white">{mat.arquivo ? (typeof mat.arquivo === 'string' ? mat.arquivo : mat.arquivo.name) : '(Sem arquivo)'}</span>
+                    <span className="flex-1 text-white font-semibold">{mat.nome || '(Sem título)'}</span>
                     <span className="text-xs text-gray-400 mr-4">{mat.publico === 'professores' ? 'Professores' : 'Todos'}</span>
                     <button className="ml-2 text-orange-500 hover:text-orange-700" onClick={() => handleEditMaterial(idx)}><FaEdit size={18} /></button>
                     <button className="ml-2 text-red-500 hover:text-red-700" onClick={() => handleDeleteMaterial(idx)}><FaTrash size={18} /></button>
@@ -463,17 +469,29 @@ const CursoWizardModal = ({ open, onClose }) => {
               {/* Formulário de material */}
               {editandoMaterial.modo && (
                 <div className="bg-[#232323] rounded-lg shadow p-6 flex flex-col gap-4 mb-6">
+                  <label className="text-white font-semibold block mb-1">Título do Material <span className="text-orange-500">(Obrigatório)</span></label>
+                  <input
+                    type="text"
+                    maxLength={150}
+                    value={materialDraft.nome}
+                    onChange={e => setMaterialDraft({ ...materialDraft, nome: e.target.value })}
+                    className="block text-white bg-[#181818] border border-gray-600 rounded px-3 py-2 mb-2 focus:border-orange-500 outline-none"
+                    placeholder="Digite o título do material (máx 150 caracteres)"
+                  />
+                  <div className="text-xs text-gray-400 text-right mb-2">{materialDraft.nome.length}/150</div>
                   <label className="text-white font-semibold block mb-1">Upload do PDF</label>
                   <input type="file" accept="application/pdf" onChange={e => setMaterialDraft({ ...materialDraft, arquivo: e.target.files[0] })} className="block text-white" />
-                  {materialDraft.arquivo && (
-                    <div className="mt-2 text-gray-300 text-sm">{typeof materialDraft.arquivo === 'string' ? materialDraft.arquivo : materialDraft.arquivo.name}</div>
-                  )}
                   <div className="flex items-center gap-2 mt-2">
                     <input type="checkbox" id="professores" checked={materialDraft.publico === 'professores'} onChange={e => setMaterialDraft({ ...materialDraft, publico: e.target.checked ? 'professores' : 'todos' })} className="accent-orange-500 w-5 h-5" />
                     <label htmlFor="professores" className="text-white">Somente professores</label>
                   </div>
                   <div className="flex gap-4 mt-4">
-                    <button type="button" className="px-6 py-2 rounded-full font-bold text-white bg-orange-500 hover:bg-orange-600 transition" onClick={handleSaveMaterial}>Salvar</button>
+                    <button type="button" className="px-6 py-2 rounded-full font-bold text-white bg-orange-500 hover:bg-orange-600 transition" onClick={() => {
+                      if (!materialDraft.nome.trim()) return; // Não salva se título vazio
+                      handleSaveMaterial();
+                    }} disabled={!materialDraft.nome.trim()}>
+                      Salvar
+                    </button>
                     <button type="button" className="px-6 py-2 rounded-full font-bold text-white bg-gray-600 hover:bg-gray-700 transition" onClick={handleCancelMaterial}>Cancelar</button>
                   </div>
                 </div>
@@ -628,7 +646,7 @@ const CursoWizardModal = ({ open, onClose }) => {
                   <div className="flex flex-col gap-2 mb-6">
                     {(materiaisPorEpisodio[temporadaSelecionada]?.[episodioSelecionado] || []).map((mat, idx) => (
                       <div key={idx} className="w-full flex items-center bg-[#232323] rounded-lg shadow p-3">
-                        <span className="flex-1 text-white">{mat.arquivo ? (typeof mat.arquivo === 'string' ? mat.arquivo : mat.arquivo.name) : '(Sem arquivo)'}</span>
+                        <span className="flex-1 text-white font-semibold">{mat.nome || '(Sem título)'}</span>
                         <span className="text-xs text-gray-400 mr-4">{mat.publico === 'professores' ? 'Professores' : 'Todos'}</span>
                         <button className="ml-2 text-orange-500 hover:text-orange-700" onClick={() => handleEditMaterial(idx, temporadaSelecionada, episodioSelecionado)}><FaEdit size={18} /></button>
                         <button className="ml-2 text-red-500 hover:text-red-700" onClick={() => handleDeleteMaterial(idx, temporadaSelecionada, episodioSelecionado)}><FaTrash size={18} /></button>
@@ -638,17 +656,29 @@ const CursoWizardModal = ({ open, onClose }) => {
                   {/* Formulário de material */}
                   {editandoMaterial.modo && (
                     <div className="bg-[#232323] rounded-lg shadow p-6 flex flex-col gap-4 mb-6">
+                      <label className="text-white font-semibold block mb-1">Título do Material <span className="text-orange-500">(Obrigatório)</span></label>
+                      <input
+                        type="text"
+                        maxLength={150}
+                        value={materialDraft.nome}
+                        onChange={e => setMaterialDraft({ ...materialDraft, nome: e.target.value })}
+                        className="block text-white bg-[#181818] border border-gray-600 rounded px-3 py-2 mb-2 focus:border-orange-500 outline-none"
+                        placeholder="Digite o título do material (máx 150 caracteres)"
+                      />
+                      <div className="text-xs text-gray-400 text-right mb-2">{materialDraft.nome.length}/150</div>
                       <label className="text-white font-semibold block mb-1">Upload do PDF</label>
                       <input type="file" accept="application/pdf" onChange={e => setMaterialDraft({ ...materialDraft, arquivo: e.target.files[0] })} className="block text-white" />
-                      {materialDraft.arquivo && (
-                        <div className="mt-2 text-gray-300 text-sm">{typeof materialDraft.arquivo === 'string' ? materialDraft.arquivo : materialDraft.arquivo.name}</div>
-                      )}
                       <div className="flex items-center gap-2 mt-2">
                         <input type="checkbox" id="professores" checked={materialDraft.publico === 'professores'} onChange={e => setMaterialDraft({ ...materialDraft, publico: e.target.checked ? 'professores' : 'todos' })} className="accent-orange-500 w-5 h-5" />
                         <label htmlFor="professores" className="text-white">Somente professores</label>
                       </div>
                       <div className="flex gap-4 mt-4">
-                        <button type="button" className="px-6 py-2 rounded-full font-bold text-white bg-orange-500 hover:bg-orange-600 transition" onClick={handleSaveMaterial}>Salvar</button>
+                        <button type="button" className="px-6 py-2 rounded-full font-bold text-white bg-orange-500 hover:bg-orange-600 transition" onClick={() => {
+                          if (!materialDraft.nome.trim()) return; // Não salva se título vazio
+                          handleSaveMaterial();
+                        }} disabled={!materialDraft.nome.trim()}>
+                          Salvar
+                        </button>
                         <button type="button" className="px-6 py-2 rounded-full font-bold text-white bg-gray-600 hover:bg-gray-700 transition" onClick={handleCancelMaterial}>Cancelar</button>
                       </div>
                     </div>
